@@ -41,7 +41,7 @@ class RAGBase:
             num_results=num_results,
             boost_dict=boost_dict,
         )
-
+    
     def build_context(self, search_results):
         lines = []
 
