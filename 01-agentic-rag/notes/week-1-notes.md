@@ -199,20 +199,83 @@ def rag(question):
     - or the LLM model 
 
 ### RAG Helper 
+- utility scripts 
+- `ingest.py` - to load data and build search index.
+- `rag_helper.py` - RAG logic (search, prompt, LLM)
 
 ### Data Ingestion 
+- RAG pipeline: loads data -> builds search index at startup -> with minsearch, indexing takes < 1 second. 
+- This breaks as dataset grows. 
+- Ingest once -> query as often as possbile. 
+- RAG With sqlitesearch. 
 
-### Wrap-up of Part-1
 
 ## Part-2: Agents
 ### Agents 
-### Quck RAG Revision 
+- Agent uses an LLM to decide which actions to take. 
+- Function Calling 
+    - to give LLM tools it can use 
+- Agentic loop 
+    - LLM decides when to call a tool
+- Frameworks
+    - libraries that run this loop for you. 
+
 ### Function Calling 
+- LLM is a passenger here, not a driver. 
+- It never sees the bad search results, so it can't try again with corrected query 
+- Agentic Alternative 
+    - Agent puts the LLM in-charge. 
+    - LLM now has a `search` tool
+    - It decides when to call it and what to search for. 
+- With RAG, developer decides;  we need to fix steps up front, so search always runs once with exact user query 
+- With an agent, LLM decides, It chooses which actions to take and when to stop. 
+- Asking without tools or with tools 
+
 ### The Agentic Loop 
+- 3 parts of an agent. 
+    - 1. Instructions. 
+    - 2. Tools 
+    - 3. Memory 
+- A developer prompt 
+- loop lets  the model recover from a bad serach on its own. 
+- Encouraging multiple searches 
+- Restrict off topic questions. 
+
 ### ToyAIKit
+- Wrap the agentic loop pattern so, we can focus on tools, prompts and behavior. 
+- Less boilerplate than handwritten loop. 
+- Teaching an exp. library only. 
+- Registring the tool. 
+    - with `Tools.add_tool()`
+- Letting ToyAIKit generate the schema.
+- `chat_interface` handles display in the notebook. 
+- `callback` renders model messages and tool calls as they happen. 
+
 ### Other Frameworks 
-
-
+- LangChain/LangGraph
+    - popular with lots of integrations 
+    - LangChain handles the basics 
+    - LangGraph adds graph-based workflows for more complex agent patterns. 
+- PydanticAI
+    - type-safe agent framework 
+    - multiple LLM provider support. 
+    - tools are plain functions with type hints, no wrapper needed. 
+- OpenAI Agents SDK
+    - supports tool defition, multi-turn conversations, handoffs between agents. 
+- Google ADK
+    - when Plan to use Gemini models
+    - Exposes the same building blocks we 've seen, like tools, instructions and sessions 
+- Others: 
+    - CrewAI - for multi-agent orchestation
+    - AutoGen - multi-agent converstaions from Microsoft
+    - Sematic Kernel - from Microsoft, supports C# and python
+    - Smolagents - Light weight framework form HuggingFace
+    - Anthropic Tool use - native tool use API
+- Avoiding Agents when you can 
+    - more API calls per request 
+    - Higher latency 
+    - More money spent 
+    - More moving parts 
 
 ## Homework 
 - [HW-1 Questions](https://courses.datatalks.club/llm-zoomcamp-2026/homework/hw1)
