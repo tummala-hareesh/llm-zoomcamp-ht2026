@@ -154,8 +154,49 @@ def rag(question):
 - Similar boosting mechanism used in `Elasticsearch` and `Lucene`.
 
 ### Building a Prompt
+- LLM knows -> passed documents only 
+- Build a prompt to include user's question and search results.
+- Split prompt into 2: 
+    - Instructions 
+        - Tells the LLM how to behave. 
+        - It never changes; fixed  
+    - User Prompts 
+        - This changes with every request
+        - It carries the actual question and the retrieved context. 
+        - Not fixed
+- Instructions
+    - Tells LLM its role and how to answer 
+    - Grounds the answer in our data and reduces hallucinations.
+- The user prompt template 
+    - User prompt has placeholders for the questios and the context. 
+    - Building the context 
+        - Formated string with all search results. 
+        - Each document becomes a block with section, question and answer 
+        - Format makes it easy for LLM to read. 
+        - List of dicts -> 1 string 
+    - Building the prompt 
+        - Combine question with context into the user prompt 
+        - Bridge between search and LLM 
+        - **Prompt Engineering** is part art , part science. 
+- Exploring the response 
+    - Response is a pydantic object. 
+    - Answer is in `response.output`
+    - Usage counts tell how many tokens the request consumed.
+- Message History 
+    - Sending only 1 string as input and getting back 1 reponse. 
+    - In reality, typically send a message history - a list of messages where each message has a role. 
+
 
 ### RAG Pipeline 
+- Wiring search + prompt + LLM together
+- Full RAG 
+    - 1. Search 
+    - 2. Build Prompt 
+    - 3. Answer using LLM 
+- Modular approach 
+    - Swap the search backend 
+    - Change the prompt template
+    - or the LLM model 
 
 ### RAG Helper 
 
