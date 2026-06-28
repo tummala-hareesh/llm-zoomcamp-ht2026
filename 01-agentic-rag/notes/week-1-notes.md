@@ -118,6 +118,40 @@ def rag(question):
     - scrape websites -> parse PDFs -> clean and chunk documents. 
 
 ### Search
+- Search Engine (core) -> take a query -> scores every document for similarity and returns the top results. 
+- There is a similarity function 
+```
+    score = sim(query, document)
+```
+- For each document, compute this score -> then, rank all documents by score and return the top N. 
+- Difference in search engine = different `sim` computation. 
+    - `text/lexical search` - `sim` counts how many words the query and document share. Surface form, the actual words and matches them exactly. 
+    - `vector/sematic search` - `sim` compares the meaning of the queyr and the document. Same fucntion, different similarity measure. 
+- Indexing with `minsearch`
+    - searching is important. 
+    - sending all the documents to LLM will be expensive and slow. 
+    - model confusion with too much data. 
+    - Search to find the most relevant documents to send instead. 
+- Search libraries: 
+    - Apache Lucene
+    - Elastic search 
+    - Solr
+    - ...
+    - `minsearch`: 
+        - a simple in-memory search engine
+        - Light weight
+        - No docker container needed. 
+        - Toy implementaiton - not production ready  
+        - Concept is same as in Elasticsearch 
+            - Text fields, keyword fields, boosting, filtering
+        - Index question, section and answer fields as text. course field as filtering keyword. 
+- Trying a search 
+    - `.search()` method. 
+    - arguments: 
+        - `boost_dict` to give the question field more weight. 
+        - `section` less weight 
+        - `filter_dict` to only return from the LLM zoomcamp source. 
+- Similar boosting mechanism used in `Elasticsearch` and `Lucene`.
 
 ### Building a Prompt
 
@@ -142,3 +176,6 @@ def rag(question):
 ## Homework 
 - [HW-1 Questions](https://courses.datatalks.club/llm-zoomcamp-2026/homework/hw1)
 - [HW-1 Notebook Submission](https://github.com/tummala-hareesh/llm-zoomcamp-ht2026/blob/main/01-agentic-rag/ipynb/HomeWork-1.ipynb)
+
+## References 
+- [Build a Search Engine](https://www.youtube.com/watch?v=nMrGK5QgPVE)
