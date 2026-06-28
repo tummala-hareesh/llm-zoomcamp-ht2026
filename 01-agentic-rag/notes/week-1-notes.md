@@ -92,10 +92,30 @@ def rag(question):
     - `minserach` and `sqllitesearch` for search
     - `OpenAI` for LLM
 - Each piece is indepedent, so RAG is flexible. 
-- 
 
 
 ### Dataset - Course FAQ
+- FAQs from zoomcamp cohorts
+- Grow over time and gets tedious to get answers by reading or searching through all. 
+- RAG system to solve the issue. 
+- Json format
+- Data available at a JSON endpoint 
+- Each entry has:
+    - id - unique identifier
+    - course - course slug
+    - section - which section of the course
+    - question - FAQ question 
+    - answer - FAQ answer 
+- slug for filtering in search. 
+- In the RAG pipeline, 
+    - dataset is our KB
+    - We index all documents. 
+    - Student asks question -> search the index. 
+    - Search returns the most relevant FAQ entries 
+    - Entries to LLM as context 
+    - LLM genertes answer based on context 
+- In realistic usecases, data prep. might be needed. 
+    - scrape websites -> parse PDFs -> clean and chunk documents. 
 
 ### Search
 
