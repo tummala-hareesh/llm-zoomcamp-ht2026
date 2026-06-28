@@ -3,8 +3,35 @@
 ### Introduction 
 - Build RAG system from scratch 
 - Small search index by hand and call LLM
+
 ### Env. Setup 
+- Python 
+- OpenAI client
+- Linux (Ubuntu)
+- uv
+```
+# Install uv
+curl -LsSf https://astral.sh/uv/install.sh | sh
+or 
+pip install uv
+
+# Initialize project using uv 
+uv init --bare 
+
+# Add dependencies 
+uv add requests minsearch openai jupyter python-dotenv
+```
+- Setting up API keys
+```
+# .env file 
+OPENAI_API_KEY=sk-YOUR_KEY_HERE
+```
+
+- [Link to quickstart notebook](https://github.com/tummala-hareesh/llm-zoomcamp-ht2026/blob/main/01-agentic-rag/ipynb/quick-start-lesson-setup.ipynb)
+
+
 ### What is RAG
+
 ### Dataset - Course FAQ
 ### Seach 
 ### Building a Prompt
