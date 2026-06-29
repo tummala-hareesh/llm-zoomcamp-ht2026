@@ -86,6 +86,9 @@
     - cost(180) = -1.0 = opposite direction (opposite meaning)
 
 ## Embedding out Dataset
+- Download ingest.py from 1st week code
+- Generate embeddings
+- Go to... quickstart -vectorsearch.ipynb notebook 
 
 
 ## Vector Search 
