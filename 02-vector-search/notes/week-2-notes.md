@@ -122,13 +122,61 @@ vindex.fit(X, documents)
 - Searching 
     - model encode 
     - vindex search 
-- 
+- Filtering by course
 
 ## RAG With vector search 
+- RAG pipeline with 3 steps:
+    - search step - keyword search; swap in vector search 
+    - only change from prev. lesson
+- `RAGBase` class
+    - `search` - swap with vector search (prev. keyword search)
+    - `build_prompt`
+    - `llm`
+- `RAGVector` class 
+    - Based on `RAGBase` class
+    - Initialize embedder
+    - override search() using vindex
 
 ## Vector search with sqlitesearch 
+- minsearch for vector search has 3 problems:
+    - It rebuilds the index on every startup 
+    - It keeps everything in memory 
+    - It searches by brute force
+- With text search 
+    - indexing was fast - no embedding needed 
+- With vector search 
+    - indexing runs a neural network over every document 
+    - It takes ~1-2 mins
+    - In-memory is fine for smaller datasets. 
+- Final problem is the brute-force search 
+    - For every query, compares query vector against every single document 
+    - With 1000+ documents, probabaly even faster than anything smarter. 
+    - Nearest Neighbour (NN) search istead of brute-force is better. 
+- sqlitesearch 
+    - persistent sibling of minsearch
+    - Solves both the problems above 
+        - vector search through `VectorSearchIndex` class
+        - stores vectors in SQLite, a real on-disk DB, uses ANN strategies for retrieval. 
+    - Create an index
+        - keyword_fields, mode and db_path
+    - Supports ANN mode 
+        - `lsh`: up to 100k vectors, random hyperplane projectsions.
+        - `ivf`: 10K-500K vectors, K-means clustering 
+        - `hnsw`: 10K-1M+ vectors, proximity graphs
+    - Indexing the data 
+    - Searching 
+-  Comparing minsearch and sqlitesearch for vector search 
+
+| Feature | `minsearch.VectorSearch` | `sqlitesearch.VectorSearchIndex` |
+| :--- | :--- | :--- |
+| **Storage Type** | In-memory (NumPy) | Persistent (SQLite `.db` file) |
+| **Search Algorithm** | Exact cosine similarity | ANN (LSH/IVF/HNSW) with exact rerank |
+| **Startup Behavior** | Must re-compute embeddings | Can open an existing index |
+| **Primary Use Case** | Experiments and notebooks | Projects and persistence |
+
 
 ## Vector search with PGVector
+
 
 ## ONNX Embedder
 
