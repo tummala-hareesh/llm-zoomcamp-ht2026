@@ -3,7 +3,8 @@
 - Vector search = matches documents by semantic meaning 
 - Embeddings -> persistent vector index (sqlitesearch, PGVector), ONNX-based embedders for lightweight deployments. 
 
-## What is Vector Search ? 
+## What is Vector Search?
+
 
 
 ## Embeddings 
@@ -32,3 +33,4 @@
 - [HW-2 Notebook Submission](https://github.com/tummala-hareesh/llm-zoomcamp-ht2026/blob/main/02-vector-search/ipynb/HomeWork-2.ipynb)
 
 ## References 
+- [Vector Databases: Embeddings, Semantic Search, and Hybrid Retrieval](https://www.youtube.com/watch?v=BC3NsRUNEIg)
