@@ -90,11 +90,39 @@
 - Generate embeddings
 - Go to... quickstart -vectorsearch.ipynb notebook 
 
-
 ## Vector Search 
+- Scoring documents 
+    - Matrix X with all documents embeddings 
+- Best match 
+- Top 5 results 
 
 ## Vector Search with minsearch
+- vector search by hand 
+    - embed the query 
+    - compute dot products
+    - found best matches
+    - using argsport and matrix code gets old with time and can't filter by course
+- use library that wraps all of this. 
+- `minsearch`
+    - small in-memory search library 
+    - Has Text Search and Vector Search. 
+    - Both classes
+        - `fit` to index data
+        - `search` to query 
+        - `filter_dict` in `search` to filter by keyword
+- Creating index 
+```
+from minsearch import VectorSearch 
 
+vindex = VectorSearch(keyword_fields=["course"])
+vindex.fit(X, documents)
+```
+- `X` is all embeddings and list of documents as payload
+- `keyword_fields` paramter works the same as in the text `Index`; filter the course later
+- Searching 
+    - model encode 
+    - vindex search 
+- 
 
 ## RAG With vector search 
 
