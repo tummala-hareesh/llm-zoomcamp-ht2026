@@ -176,10 +176,60 @@ vindex.fit(X, documents)
 
 
 ## Vector search with PGVector
-
+- Many real DBs have vector search. 
+    - Elastic search has it 
+    - Dedicated stores like Qdrant and Chroma.
+- We use PostGres here
+- Same concept as sqlitesearch, Only DB under the hood changes. 
+- `pgvector` is PostGresSQL extension 
+- Postgres can do vector similarity search 
+- Additional prod features like: concurrent access, transactions, and large datasets. 
+- run using Docker 
+```
+docker run -it \
+    --name pgvector \
+    -e POSTGRES_USER=user \
+    -e POSTGRES_PASSWORD=pswd \
+    -e POSTGRES_DB=faq \
+    -v pgvector_data:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    pgvector/pgvector:pg17
+```
+- Using it in RAG
+- PGVector 
+    - Concurrent reads and writes 
+    - transactions 
+    - Integration with an existing Postgres-based application 
 
 ## ONNX Embedder
+- In prod, cut the overhead.
+    - dependencies 
+    - size of deployment 
+    - sentence-transformers -> drags in PyTorch + pile of Nvidia libraries = Lot. 
+    - ONNX runtime serves the same model without that weight.
+- venv sizes: 
+    - sentence-transformers: 4.8GB, 58 packages
+    - ONNX runtime: 147 MB, 27 packages
+    - 33x smaller
+- The embedder class 
+    - Tokenize
+    - Run ONNX model 
+    - Mean pooling
+    - Normalize
+- Same pipeline, No PyTorch 
 
+## Additional Material 
+3 ways to search 
+- vector search 
+- keyword search 
+- hybrid search 
+
+
+- Which is the best way?
+    - The right choice depends on your data, and the way to decide is to measure.
+
+- How to evaluate and compare search approaches ?
+    - In [evaluation module](https://github.com/DataTalksClub/llm-zoomcamp/blob/main/04-evaluation/lessons/04-search-evaluation.md)
 
 
 ## Homework 
