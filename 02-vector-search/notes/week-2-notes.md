@@ -56,6 +56,31 @@
         - 3. PGVector - vector search in PostgreSQL; runs on docker 
 
 ## Embeddings 
+- Embeddings = Document -> Text -> Vectors -> Setup Vector Search 
+- Embed text into a vector space 
+- Word embeddings and sentence embeddings 
+    - Idea from word2vec
+    - Model learns from place words as points in multi-dimensional space. 
+    - Words -> similar meaning -> closer to each other in multi-dim space. 
+- 1200 documents -> each becomes a point in space 
+- Model encodes the whole sentence, not words in isolation. 
+- Embeddings model
+    - `sentence-transformers`; 
+    - open-source library for embeddings
+    - local; no API cost.
+    - Pytorch under the hood. 
+- Choosing a model 
+    - Sentence Transformers supports many models 
+    - Choice depends on the task and language and resources 
+    - Larger models are slower; for FAQs smaller model is enough.
+    - Choice of models: `all-MiniLM-L6-v2`
+        - 384-dimensional vectors 
+        - Fast on CPU
+        - Good quality for general English text
+        - Uses cosine similarity
+        - model = ~80MB; and tokenizer from HuggingFace. 
+        - Tokenizer -> turns text into something the model can read. 
+  
 
 
 ## Embedding out Dataset
