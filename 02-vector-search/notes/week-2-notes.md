@@ -80,8 +80,10 @@
         - Uses cosine similarity
         - model = ~80MB; and tokenizer from HuggingFace. 
         - Tokenizer -> turns text into something the model can read. 
-  
-
+- Cosine similarity
+    - cos(0) =1.0 = same direction (similar); Rare case
+    - cos(90) = 0.0 = perpendicular (unrelated)
+    - cost(180) = -1.0 = opposite direction (opposite meaning)
 
 ## Embedding out Dataset
 
@@ -104,6 +106,7 @@
 ## Homework 
 - [HW-2 Questions](https://courses.datatalks.club/llm-zoomcamp-2026/homework/hw2)
 - [HW-2 Notebook Submission](https://github.com/tummala-hareesh/llm-zoomcamp-ht2026/blob/main/02-vector-search/ipynb/HomeWork-2.ipynb)
+- [Quick Start for Vector Search]()
 
 ## References 
 - [Vector Databases: Embeddings, Semantic Search, and Hybrid Retrieval](https://www.youtube.com/watch?v=BC3NsRUNEIg)
